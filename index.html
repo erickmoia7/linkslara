@@ -4,259 +4,207 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lara Carmen</title>
-
-<link rel="icon" type="image/png" href="favicon.">
-<link rel="apple-touch-icon" href="favicon.png">
-
-<meta property="og:title" content="Seu Nome (@seuusuario)">
-<meta property="og:image" content="https://seusite.com/foto.jpg">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta property="og:title" content="Lara Carmen">
+<meta property="og:image" content="https://laracarmen.com.br/foto.jpg">
 <style>
   :root {
     color-scheme: dark;
-    --bg: #0e0e10;
-    --card: #1c1c20;
-    --card-hover: #26262c;
-    --text: #ffffff;
-    --muted: #9a9aa3;
-    --accent: #3b9cff;
+    --bg: #000;
+    --text: #fff;
+    --muted: #9b9ba3;
+    --pill: rgba(255,255,255,.09);
+    --line: rgba(255,255,255,.14);
+    --accent: #5b6cf0;
     box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   *, *::before, *::after { box-sizing: inherit; }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  html, body { height: 100%; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
+    margin: 0; background: var(--bg); color: var(--text);
     font-family: "Inter", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 480px; margin: 0 auto; min-height: 100vh; position: relative; }
-
-  /* ===== FOTO DE TOPO ===== */
-  .hero {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background: var(--card);
+    display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
-  /* Coloque sua foto aqui: <img src="SUA-FOTO.jpg" alt="Seu nome"> */
-  .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .hero .vazio {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 8px; color: var(--muted); font-size: 14px;
+  .fundo { position: fixed; inset: 0; z-index: 0; }
+  .fundo img { width: 100%; height: 100%; object-fit: cover; filter: blur(60px) brightness(.55); transform: scale(1.3); }
+
+  .card {
+    position: relative; z-index: 1; overflow: hidden;
+    width: 100%; max-width: 520px; height: 100%; max-height: 860px;
+    background: #000;
   }
-  .hero::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 45%;
-    background: linear-gradient(to bottom, transparent, var(--bg));
-    pointer-events: none;
+  @media (min-width: 560px) { .card { height: calc(100% - 40px); border-radius: 28px; } }
+
+  .card > img.foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card::before {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.85) 68%, #000 82%);
   }
 
-  /* ===== PERFIL ===== */
-  .perfil {
-    position: relative; z-index: 1;
-    margin-top: -72px;
-    padding: 0 20px 24px;
+  .info {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    padding: 0 20px calc(18px + env(safe-area-inset-bottom, 0px));
     text-align: center;
   }
-  .nome {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.01em;
-  }
-  .nome svg { width: 22px; height: 22px; flex: none; }
-  .usuario { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+  .nome { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+  .nome svg { width: 22px; height: 22px; flex: none; margin-top: 2px; }
+  .usuario { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
 
-  .redes {
-    display: flex; justify-content: center; flex-wrap: wrap; gap: 14px;
-    margin: 18px 0 0; padding: 0; list-style: none;
-  }
-  .redes a, .redes .slot {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: var(--card); color: var(--text);
+  .redes { display: flex; justify-content: center; gap: 10px; margin: 14px 0 0; padding: 0; list-style: none; }
+  .redes a {
+    width: 36px; height: 36px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    text-decoration: none; font-size: 12px; transition: background .15s;
+    text-decoration: none; color: #fff; transition: transform .15s;
   }
-  .redes a:hover { background: var(--card-hover); }
-  .redes svg { width: 22px; height: 22px; }
-
-
-  .redes a { width: 48px; height: 48px; }
-  .redes a.tg { background: #fff; color: #229ED9; }
+  .redes a:hover { transform: scale(1.08); }
+  .redes a.tg { background: #fff; }
+  .redes a.x, .redes a.tt { background: rgba(255,255,255,.08); }
+  .redes a svg { width: 16px; height: 16px; }
   .redes a.tg svg { width: 100%; height: 100%; }
-  .redes a.x  { background: #000; color: #fff; border: 1px solid #2f2f33; }
-  .redes a.tt { background: #000; color: #fff; border: 1px solid #2f2f33; }
-  .redes a.x svg, .redes a.tt svg { width: 20px; height: 20px; }
-  .redes a:hover { filter: brightness(1.15); }
+  .redes a:focus-visible, .pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-
-  .seguidores {
-    display: inline-flex; align-items: center; gap: 4px; margin: 18px 0 0;
-    background: none; border: 0; padding: 6px 10px; cursor: pointer;
-    font: inherit; font-size: 15px; color: var(--muted);
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin: 14px 0 0; padding: 9px 16px;
+    background: var(--pill); border: 1px solid var(--line); border-radius: 999px;
+    color: var(--text); font: inherit; font-size: 15px; cursor: pointer;
+    backdrop-filter: blur(8px);
   }
-  .seguidores strong { color: var(--text); font-size: 17px; margin-right: 2px; }
-  .seguidores:focus-visible { outline: 2px solid var(--accent); border-radius: 8px; }
-  .seguidores svg { margin-left: 4px; }
+  .pill strong { font-weight: 700; }
+  .pill svg { width: 14px; height: 14px; transition: transform .3s; }
+  .pill.on svg { transform: rotate(180deg); }
 
-  .overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 20;
-    opacity: 0; pointer-events: none; transition: opacity .25s;
+  .bio { margin: 14px 0 0; font-size: 15px; }
+  .rodape { margin: 22px 0 0; font-size: 13px; color: var(--muted); }
+  .rodape a { color: var(--muted); text-decoration: none; }
+  .rodape a:hover { text-decoration: underline; }
+
+  .veu {
+    position: absolute; inset: 0; z-index: 4; background: rgba(0,0,0,.4);
+    opacity: 0; pointer-events: none; transition: opacity .6s ease;
   }
-  .overlay.on { opacity: 1; pointer-events: auto; }
+  .veu.on { opacity: 1; pointer-events: auto; }
+
   .sheet {
-    position: fixed; left: 50%; bottom: 0; z-index: 21;
-    width: 100%; max-width: 480px;
-    background: #17171a; border-radius: 24px 24px 0 0;
-    padding: 0 20px calc(24px + env(safe-area-inset-bottom, 0px));
-    transform: translate(-50%, 100%); transition: transform .3s cubic-bezier(.2,.8,.2,1);
-    touch-action: none;
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 5;
+    padding: 0 18px calc(20px + env(safe-area-inset-bottom, 0px));
+    background: #131315; border-radius: 28px 28px 0 0;
+    box-shadow: 0 -24px 60px rgba(0,0,0,.55);
+    transform: translateY(100%);
+    transition: transform .65s cubic-bezier(.32,.72,0,1);
+    will-change: transform; touch-action: none;
   }
-  .sheet.on { transform: translate(-50%, 0); }
+  .sheet.on { transform: translateY(0); }
   .sheet.arrastando { transition: none; }
-  .puxador { padding: 12px 0 14px; cursor: grab; }
-  .puxador i { display: block; width: 40px; height: 5px; border-radius: 3px; background: #3a3a40; margin: 0 auto; }
-  .sheet h2 { margin: 0 0 14px; font-size: 18px; text-align: center; }
+  .puxador { padding: 10px 0 14px; cursor: grab; }
+  .puxador i { display: block; width: 36px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.22); margin: 0 auto; }
+  .titulo { margin: 0 0 6px; text-align: center; font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+
   .lista { list-style: none; margin: 0; padding: 0; }
-  .lista li { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid #26262c; }
-  .lista .ic { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: none; font-weight: 800; font-size: 13px; color: #fff; }
-  .lista .ic.tg { background: #fff; }
-  .lista .ic.tg svg { width: 100%; height: 100%; }
-  .lista .ic.x, .lista .ic.tt { background: #000; border: 1px solid #2f2f33; }
-  .lista .ic svg { width: 18px; height: 18px; }
-  .lista .rede { flex: 1; font-size: 16px; }
-  .lista .qtd { font-size: 16px; font-weight: 600; }
-  .soma { display: flex; justify-content: space-between; padding: 16px 0 0; font-size: 18px; font-weight: 700; }
-  @media (prefers-reduced-motion: reduce) { .sheet, .overlay { transition: none; } }
-
-  .bio { margin: 14px auto 0; max-width: 340px; font-size: 16px; line-height: 1.45; }
-
-  /* ===== LINKS ===== */
-  .links { display: flex; flex-direction: column; gap: 12px; padding: 0 20px; margin: 0; list-style: none; }
-  .link {
-    display: flex; align-items: center; gap: 14px;
-    background: var(--card); color: var(--text);
-    border-radius: 16px; padding: 12px 16px; min-height: 64px;
-    text-decoration: none; transition: background .15s;
+  .lista li {
+    opacity: 0; transform: translateY(16px);
+    transition: opacity .45s ease, transform .65s cubic-bezier(.32,.72,0,1);
   }
-  .link:hover { background: var(--card-hover); }
-  .link:focus-visible, .redes a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .link .icone {
-    width: 40px; height: 40px; border-radius: 10px; flex: none;
-    background: var(--card-hover); overflow: hidden;
-    display: flex; align-items: center; justify-content: center; color: var(--muted);
+  .sheet.on .lista li { opacity: 1; transform: none; transition-delay: calc(var(--i) * 70ms + 180ms); }
+  .linha {
+    display: flex; align-items: center; gap: 14px; padding: 12px 10px;
+    border-radius: 18px; color: inherit; text-decoration: none; transition: background .25s ease;
   }
-  .link .icone img { width: 100%; height: 100%; object-fit: cover; }
-  .link .titulo { flex: 1; font-size: 16px; font-weight: 600; text-align: center; }
-  .link .espaco { width: 40px; flex: none; }
+  .linha:hover, .linha:focus-visible { background: rgba(255,255,255,.06); outline: none; }
+  .av { position: relative; width: 46px; height: 46px; flex: none; }
+  .av img.pessoa { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #2a2a30; display: block; }
+  .av .badge {
+    position: absolute; right: -3px; bottom: -3px; width: 19px; height: 19px; border-radius: 50%;
+    background: #000; border: 2px solid #131315; display: flex; align-items: center; justify-content: center;
+  }
+  .av .badge svg { width: 9px; height: 9px; }
+  .av .badge.tg { background: #fff; border-color: #fff; }
+  .av .badge.tg svg { width: 100%; height: 100%; }
+  .linha .n { flex: 1; font-size: 16px; font-weight: 600; }
+  .linha .seta { width: 18px; height: 18px; color: var(--muted); flex: none; transition: transform .3s ease; }
+  .linha:hover .seta { transform: translateX(3px); }
 
-  /* ===== RODAPÉ ===== */
-  footer { padding: 28px 20px 32px; text-align: center; font-size: 12px; color: var(--muted); }
-  footer a { color: var(--muted); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
+  @media (prefers-reduced-motion: reduce) { .sheet, .veu, .lista li, .pill svg { transition: none; } }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <!-- FOTO: troque o bloco .vazio por <img src="SUA-FOTO.jpg" alt="Seu nome"> -->
-  <header class="hero">
-    <div class="vazio">
-      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-      <span>Sua foto aqui</span>
-    </div>
-  </header>
+<div class="fundo"><img id="fundo" alt=""></div>
 
-  <section class="perfil">
-    <h1 class="nome">
-      Seu Nome
-      <svg viewBox="0 0 24 24" aria-label="Verificado"><path fill="#3b9cff" d="M12 1.5l2.6 1.9 3.2-.1 1 3 2.6 1.9-1 3.1 1 3.1-2.6 1.9-1 3-3.2-.1L12 22.5l-2.6-1.9-3.2.1-1-3-2.6-1.9 1-3.1-1-3.1 2.6-1.9 1-3 3.2.1z"/><path d="M8 12.2l2.8 2.8 5.2-5.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<main class="card" id="card">
+  <img class="foto" id="foto" src="foto.png" alt="laracarmen"> <!-- foto -->
+
+  <section class="info">
+    <h1 class="nome">Lara Carmen
+      <svg viewBox="0 0 24 24" aria-label="Verificado"><g fill="#5b6cf0"><rect x="4" y="4" width="16" height="16" rx="4"/><rect x="4" y="4" width="16" height="16" rx="4" transform="rotate(45 12 12)"/></g><path d="M8.2 12.3l2.7 2.7 4.9-5.3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </h1>
-    <p class="usuario">@seuusuario</p>
+    <p class="usuario">@laracarmen0</p>
 
-    <!-- REDES SOCIAIS: copie um <li> para cada rede e troque o href -->
     <ul class="redes">
-      <!-- Troque o href de cada rede pelo seu link. Para remover uma rede, apague o <li>. -->
-      <li><a href="#" class="tg" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="#229ED9"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a></li>
-      <li><a href="#" class="x" aria-label="Twitter / X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></li>
-      <li><a href="#" class="tt" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></li>
+      <li><a href="#" class="tg" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="#229ED9"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a></li> <!-- link -->
+      <li><a href="https://www.threads.com/@laracarmen0" class="x" aria-label="Twitter / X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></li> <!-- link -->
+      <li><a href="#" class="tt" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></li> <!-- link -->
     </ul>
 
-    <button class="seguidores" id="abrir" type="button" aria-haspopup="dialog" aria-controls="sheet">
-      <strong id="total">0</strong>Total Followers
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>
+    <button class="pill" id="abrir" type="button" aria-haspopup="dialog" aria-expanded="false">
+      Redes sociais
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
     </button>
-    <p class="bio">Sua bio aqui. Escreva uma frase curta de boas-vindas.</p>
+
+    <p class="bio">Hey Welcome</p>
+    <p class="rodape"><a href="https://about.link.me/privacypolicy">Privacy Policy</a> | <a href="https://about.link.me/termsandconditions">Terms</a> | <a href="https://stopncii.org">Report</a></p>
   </section>
 
-  <!-- LINKS: copie um <li> para cada link. Para colocar imagem no ícone: <span class="icone"><img src="icone.jpg" alt=""></span> -->
-  <ul class="links">
-    <li><a class="link" href="#"><span class="icone"></span><span class="titulo">Link 1</span><span class="espaco"></span></a></li>
-    <li><a class="link" href="#"><span class="icone"></span><span class="titulo">Link 2</span><span class="espaco"></span></a></li>
-    <li><a class="link" href="#"><span class="icone"></span><span class="titulo">Link 3</span><span class="espaco"></span></a></li>
-    <li><a class="link" href="#"><span class="icone"></span><span class="titulo">Link 4</span><span class="espaco"></span></a></li>
-  </ul>
+  <div class="veu" id="veu"></div>
 
-  <footer>
-    <a href="#">Política de Privacidade</a> | <a href="#">Termos</a> | <a href="#">Denunciar</a>
-  </footer>
-</div>
-
-<div class="overlay" id="overlay"></div>
-<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Seguidores por rede" aria-hidden="true">
-  <div class="puxador" id="puxador"><i></i></div>
-  <h2>Total Followers</h2>
-  <ul class="lista" id="lista"></ul>
-  <div class="soma"><span>Total</span><span id="soma">0</span></div>
-</div>
+  <div class="sheet" id="sheet" role="dialog" aria-label="Seguidores por rede" aria-hidden="true">
+    <div class="puxador"><i></i></div>
+    <p class="titulo">Redes sociais</p>
+    <ul class="lista" id="lista"></ul>
+  </div>
+</main>
 
 <script>
-/* ===== SEUS SEGUIDORES =====
-   Digite o número de seguidores de cada rede (só números).
-   O total é somado automaticamente. Para tirar uma rede, apague a linha. */
 const REDES = [
-  { key: "tt", nome: "TikTok",    seguidores: 204900 },
-  { key: "x",  nome: "Twitter/X", seguidores: 32900 },
-  { key: "tg", nome: "Telegram",  seguidores: 0 }   // 0 = não aparece na lista
+  { key: "tt", nome: "seuusuario_", link: "#", foto: "avatar-tiktok.jpg" }, // foto e link
+  { key: "x",  nome: "seuusuario_", link: "#", foto: "avatar-x.jpg" }, // foto e link
+  { key: "tg", nome: "seuusuario",  link: "#", foto: "avatar-telegram.jpg" } // foto e link
 ];
 
-function fmt(n) {
-  if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
-  if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
-  return String(n);
-}
+const ICONES = {
+  tt: document.querySelector(".redes a.tt").innerHTML,
+  x:  document.querySelector(".redes a.x").innerHTML,
+  tg: document.querySelector(".redes a.tg").innerHTML
+};
+
 const lista = document.getElementById("lista");
-let total = 0;
-REDES.filter(r => r.seguidores > 0).forEach(r => {
-  total += r.seguidores;
-  const icone = document.querySelector(".redes a." + r.key);
+REDES.forEach((r, i) => {
   const li = document.createElement("li");
-  li.innerHTML = '<span class="ic ' + r.key + '">' + (icone ? icone.innerHTML : "") + '</span>' +
-                 '<span class="rede">' + r.nome + '</span><span class="qtd">' + fmt(r.seguidores) + '</span>';
+  li.style.setProperty("--i", i);
+  li.innerHTML =
+    '<a class="linha" href="' + r.link + '">' +
+    '<span class="av"><img class="pessoa" src="' + r.foto + '" alt="">' +
+    '<span class="badge ' + r.key + '">' + ICONES[r.key] + '</span></span>' +
+    '<span class="n">' + r.nome + '</span>' +
+    '<svg class="seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>';
   lista.appendChild(li);
 });
-document.getElementById("total").textContent = fmt(total);
-document.getElementById("soma").textContent = fmt(total);
 
-/* ===== ABA QUE PUXA PRA CIMA ===== */
-const sheet = document.getElementById("sheet"), overlay = document.getElementById("overlay"),
-      abrirBtn = document.getElementById("abrir"), puxador = document.getElementById("puxador");
-function abrir() { sheet.classList.add("on"); overlay.classList.add("on"); sheet.setAttribute("aria-hidden", "false"); }
-function fechar() { sheet.classList.remove("on"); overlay.classList.remove("on"); sheet.setAttribute("aria-hidden", "true"); abrirBtn.focus(); }
-abrirBtn.addEventListener("click", abrir);
-overlay.addEventListener("click", fechar);
+const foto = document.getElementById("foto");
+document.getElementById("fundo").src = foto.getAttribute("src");
+
+const sheet = document.getElementById("sheet"), pill = document.getElementById("abrir"), veu = document.getElementById("veu");
+function abrir() { veu.classList.add("on"); sheet.classList.add("on"); pill.classList.add("on"); pill.setAttribute("aria-expanded", "true"); sheet.setAttribute("aria-hidden", "false"); }
+function fechar() { veu.classList.remove("on"); sheet.classList.remove("on"); pill.classList.remove("on"); pill.setAttribute("aria-expanded", "false"); sheet.setAttribute("aria-hidden", "true"); }
+pill.addEventListener("click", () => sheet.classList.contains("on") ? fechar() : abrir());
 document.addEventListener("keydown", e => { if (e.key === "Escape") fechar(); });
+veu.addEventListener("click", fechar);
 
-// arrastar a aba para baixo para fechar
 let y0 = null;
 sheet.addEventListener("pointerdown", e => { y0 = e.clientY; sheet.classList.add("arrastando"); sheet.setPointerCapture(e.pointerId); });
-sheet.addEventListener("pointermove", e => {
-  if (y0 === null) return;
-  const dy = Math.max(0, e.clientY - y0);
-  sheet.style.transform = "translate(-50%, " + dy + "px)";
-});
+sheet.addEventListener("pointermove", e => { if (y0 !== null) sheet.style.transform = "translateY(" + Math.max(0, e.clientY - y0) + "px)"; });
 function soltar(e) {
   if (y0 === null) return;
   const dy = e.clientY - y0; y0 = null;
@@ -266,10 +214,9 @@ function soltar(e) {
 sheet.addEventListener("pointerup", soltar);
 sheet.addEventListener("pointercancel", soltar);
 
-// puxar o contador para cima abre a aba
 let ty = null;
-abrirBtn.addEventListener("touchstart", e => { ty = e.touches[0].clientY; }, { passive: true });
-abrirBtn.addEventListener("touchend", e => { if (ty !== null && ty - e.changedTouches[0].clientY > 30) abrir(); ty = null; });
+pill.addEventListener("touchstart", e => { ty = e.touches[0].clientY; }, { passive: true });
+pill.addEventListener("touchend", e => { if (ty !== null && ty - e.changedTouches[0].clientY > 30) abrir(); ty = null; });
 </script>
 </body>
 </html>
