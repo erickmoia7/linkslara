@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,154 +8,278 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <meta property="og:title" content="Lara Carmen">
 <meta property="og:image" content="https://laracarmen.com.br/foto.jpg">
+
 <style>
-  :root {
-    color-scheme: dark;
-    --bg: #000;
-    --text: #fff;
-    --muted: #9b9ba3;
-    --pill: rgba(255,255,255,.09);
-    --line: rgba(255,255,255,.14);
-    --accent: #5b6cf0;
-    box-sizing: border-box;
-  }
-  *, *::before, *::after { box-sizing: inherit; }
-  html, body { height: 100%; }
-  body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font-family: "Inter", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .fundo { position: fixed; inset: 0; z-index: 0; }
-  .fundo img { width: 100%; height: 100%; object-fit: cover; filter: blur(60px) brightness(.55); transform: scale(1.3); }
+:root {
+  color-scheme: dark;
+  --bg: #000;
+  --text: #fff;
+  --muted: #9b9ba3;
+  --pill: rgba(255,255,255,.09);
+  --line: rgba(255,255,255,.14);
+  --accent: #5b6cf0;
+  box-sizing: border-box;
+}
 
-  .card {
-    position: relative; z-index: 1; overflow: hidden;
-    width: 100%; max-width: 520px; height: 100%; max-height: 860px;
-    background: #000;
-  }
-  @media (min-width: 560px) { .card { height: calc(100% - 40px); border-radius: 28px; } }
+*, *::before, *::after { box-sizing: inherit; }
+html, body { height: 100%; }
 
-  .card > img.foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-  .card::before {
-    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.85) 68%, #000 82%);
-  }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Inter", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
 
-  .info {
-    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
-    padding: 0 20px calc(18px + env(safe-area-inset-bottom, 0px));
-    text-align: center;
-  }
-  .nome { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
-  .nome svg { width: 22px; height: 22px; flex: none; margin-top: 2px; }
-  .usuario { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.fundo { position: fixed; inset: 0; z-index: 0; }
+.fundo img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: blur(60px) brightness(.55); transform: scale(1.3);
+}
 
-  .redes { display: flex; justify-content: center; gap: 10px; margin: 14px 0 0; padding: 0; list-style: none; }
-  .redes a {
-    width: 36px; height: 36px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    text-decoration: none; color: #fff; transition: transform .15s;
-  }
-  .redes a:hover { transform: scale(1.08); }
-  .redes a.tg { background: #fff; }
-  .redes a.x, .redes a.tt { background: rgba(255,255,255,.08); }
-  .redes a svg { width: 16px; height: 16px; }
-  .redes a.tg svg { width: 100%; height: 100%; }
-  .redes a:focus-visible, .pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.card {
+  position: relative; z-index: 1; overflow: hidden;
+  width: 100%; max-width: 520px; height: 100%; max-height: 860px;
+  background: #000;
+}
 
-  .pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin: 14px 0 0; padding: 9px 16px;
-    background: var(--pill); border: 1px solid var(--line); border-radius: 999px;
-    color: var(--text); font: inherit; font-size: 15px; cursor: pointer;
-    backdrop-filter: blur(8px);
-  }
-  .pill strong { font-weight: 700; }
-  .pill svg { width: 14px; height: 14px; transition: transform .3s; }
-  .pill.on svg { transform: rotate(180deg); }
+@media (min-width: 560px) {
+  .card { height: calc(100% - 40px); border-radius: 28px; }
+}
 
-  .bio { margin: 14px 0 0; font-size: 15px; }
-  .rodape { margin: 22px 0 0; font-size: 13px; color: var(--muted); }
-  .rodape a { color: var(--muted); text-decoration: none; }
-  .rodape a:hover { text-decoration: underline; }
+.card > img.foto {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
 
-  .veu {
-    position: absolute; inset: 0; z-index: 4; background: rgba(0,0,0,.4);
-    opacity: 0; pointer-events: none; transition: opacity .6s ease;
-  }
-  .veu.on { opacity: 1; pointer-events: auto; }
+.card::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.85) 68%, #000 82%);
+}
 
-  .sheet {
-    position: absolute; left: 0; right: 0; bottom: 0; z-index: 5;
-    padding: 0 18px calc(20px + env(safe-area-inset-bottom, 0px));
-    background: #131315; border-radius: 28px 28px 0 0;
-    box-shadow: 0 -24px 60px rgba(0,0,0,.55);
-    transform: translateY(100%);
-    transition: transform .65s cubic-bezier(.32,.72,0,1);
-    will-change: transform; touch-action: none;
-  }
-  .sheet.on { transform: translateY(0); }
-  .sheet.arrastando { transition: none; }
-  .puxador { padding: 10px 0 14px; cursor: grab; }
-  .puxador i { display: block; width: 36px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.22); margin: 0 auto; }
-  .titulo { margin: 0 0 6px; text-align: center; font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.info {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: 0 20px calc(18px + env(safe-area-inset-bottom, 0px));
+  text-align: center;
+}
 
-  .lista { list-style: none; margin: 0; padding: 0; }
-  .lista li {
-    opacity: 0; transform: translateY(16px);
-    transition: opacity .45s ease, transform .65s cubic-bezier(.32,.72,0,1);
-  }
-  .sheet.on .lista li { opacity: 1; transform: none; transition-delay: calc(var(--i) * 70ms + 180ms); }
-  .linha {
-    display: flex; align-items: center; gap: 14px; padding: 12px 10px;
-    border-radius: 18px; color: inherit; text-decoration: none; transition: background .25s ease;
-  }
-  .linha:hover, .linha:focus-visible { background: rgba(255,255,255,.06); outline: none; }
-  .av { position: relative; width: 46px; height: 46px; flex: none; }
-  .av img.pessoa { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #2a2a30; display: block; }
-  .av .badge {
-    position: absolute; right: -3px; bottom: -3px; width: 19px; height: 19px; border-radius: 50%;
-    background: #000; border: 2px solid #131315; display: flex; align-items: center; justify-content: center;
-  }
-  .av .badge svg { width: 9px; height: 9px; }
-  .av .badge.tg { background: #fff; border-color: #fff; }
-  .av .badge.tg svg { width: 100%; height: 100%; }
-  .linha .n { flex: 1; font-size: 16px; font-weight: 600; }
-  .linha .seta { width: 18px; height: 18px; color: var(--muted); flex: none; transition: transform .3s ease; }
-  .linha:hover .seta { transform: translateX(3px); }
+.nome {
+  display: inline-flex; align-items: center; gap: 6px; margin: 0;
+  font-size: 30px; font-weight: 800; letter-spacing: -0.02em;
+}
 
-  @media (prefers-reduced-motion: reduce) { .sheet, .veu, .lista li, .pill svg { transition: none; } }
+.nome svg { width: 22px; height: 22px; flex: none; margin-top: 2px; }
+.usuario { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+
+.redes {
+  display: flex; justify-content: center; gap: 10px;
+  margin: 14px 0 0; padding: 0; list-style: none;
+}
+
+.redes a {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; color: #fff; transition: transform .15s;
+}
+
+.redes a:hover { transform: scale(1.08); }
+.redes a.tg { background: #fff; }
+.redes a.x, .redes a.tt { background: rgba(255,255,255,.08); }
+.redes a svg { width: 16px; height: 16px; }
+.redes a.tg svg { width: 100%; height: 100%; }
+
+/* Imagens dos três ícones */
+.redes a img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 3px;
+  border-radius: 50%;
+}
+
+.redes a:focus-visible, .pill:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin: 14px 0 0; padding: 9px 16px;
+  background: var(--pill); border: 1px solid var(--line); border-radius: 999px;
+  color: var(--text); font: inherit; font-size: 15px; cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.pill strong { font-weight: 700; }
+.pill svg { width: 14px; height: 14px; transition: transform .3s; }
+.pill.on svg { transform: rotate(180deg); }
+
+.bio { margin: 14px 0 0; font-size: 15px; }
+.rodape { margin: 22px 0 0; font-size: 13px; color: var(--muted); }
+.rodape a { color: var(--muted); text-decoration: none; }
+.rodape a:hover { text-decoration: underline; }
+
+.veu {
+  position: absolute; inset: 0; z-index: 4; background: rgba(0,0,0,.4);
+  opacity: 0; pointer-events: none; transition: opacity .6s ease;
+}
+
+.veu.on { opacity: 1; pointer-events: auto; }
+
+.sheet {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 5;
+  padding: 0 18px calc(20px + env(safe-area-inset-bottom, 0px));
+  background: #131315; border-radius: 28px 28px 0 0;
+  box-shadow: 0 -24px 60px rgba(0,0,0,.55);
+  transform: translateY(100%);
+  transition: transform .65s cubic-bezier(.32,.72,0,1);
+  will-change: transform; touch-action: none;
+}
+
+.sheet.on { transform: translateY(0); }
+.sheet.arrastando { transition: none; }
+.puxador { padding: 10px 0 14px; cursor: grab; }
+
+.puxador i {
+  display: block; width: 36px; height: 4px; border-radius: 2px;
+  background: rgba(255,255,255,.22); margin: 0 auto;
+}
+
+.titulo {
+  margin: 0 0 6px; text-align: center; font-size: 13px;
+  font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lista { list-style: none; margin: 0; padding: 0; }
+
+.lista li {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .45s ease, transform .65s cubic-bezier(.32,.72,0,1);
+}
+
+.sheet.on .lista li {
+  opacity: 1; transform: none;
+  transition-delay: calc(var(--i) * 70ms + 180ms);
+}
+
+.linha {
+  display: flex; align-items: center; gap: 14px; padding: 12px 10px;
+  border-radius: 18px; color: inherit; text-decoration: none;
+  transition: background .25s ease;
+}
+
+.linha:hover, .linha:focus-visible {
+  background: rgba(255,255,255,.06); outline: none;
+}
+
+.av { position: relative; width: 46px; height: 46px; flex: none; }
+
+.av img.pessoa {
+  width: 100%; height: 100%; border-radius: 50%;
+  object-fit: cover; background: #2a2a30; display: block;
+}
+
+.av .badge {
+  position: absolute; right: -3px; bottom: -3px;
+  width: 19px; height: 19px; border-radius: 50%;
+  background: #000; border: 2px solid #131315;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.av .badge svg { width: 9px; height: 9px; }
+.av .badge.tg { background: #fff; border-color: #fff; }
+.av .badge.tg svg { width: 100%; height: 100%; }
+
+/* Ícones das redes no menu */
+.av .badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.linha .n { flex: 1; font-size: 16px; font-weight: 600; }
+.linha .seta {
+  width: 18px; height: 18px; color: var(--muted);
+  flex: none; transition: transform .3s ease;
+}
+
+.linha:hover .seta { transform: translateX(3px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet, .veu, .lista li, .pill svg { transition: none; }
+}
 </style>
 </head>
+
 <body>
 
 <div class="fundo"><img id="fundo" alt=""></div>
 
 <main class="card" id="card">
-  <img class="foto" id="foto" src="foto.png" alt="laracarmen"> <!-- foto -->
+
+  <img class="foto" id="foto" src="foto.png" alt="laracarmen">
 
   <section class="info">
+
     <h1 class="nome">Lara Carmen
-      <svg viewBox="0 0 24 24" aria-label="Verificado"><g fill="#5b6cf0"><rect x="4" y="4" width="16" height="16" rx="4"/><rect x="4" y="4" width="16" height="16" rx="4" transform="rotate(45 12 12)"/></g><path d="M8.2 12.3l2.7 2.7 4.9-5.3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24" aria-label="Verificado">
+        <g fill="#5b6cf0">
+          <rect x="4" y="4" width="16" height="16" rx="4"/>
+          <rect x="4" y="4" width="16" height="16" rx="4" transform="rotate(45 12 12)"/>
+        </g>
+        <path d="M8.2 12.3l2.7 2.7 4.9-5.3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </h1>
+
     <p class="usuario">@laracarmen0</p>
 
+    <!-- REDES SOCIAIS -->
+
     <ul class="redes">
-      <li><a href="#" class="tg" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="#229ED9"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a></li> <!-- link -->
-      <li><a href="https://www.threads.com/@laracarmen0" class="x" aria-label="Twitter / X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></li> <!-- link -->
-      <li><a href="#" class="tt" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></li> <!-- link -->
+
+      <li>
+        <a href="https://www.instagram.com/laracarmen0?utm_source=ig_web_button_share_sheet&vrfl=ZDNlZDc0MzIxNw=="
+           class="tg" aria-label="Instagram"
+           target="_blank" rel="noopener noreferrer">
+          <img src="foto.png" alt="Instagram">
+        </a>
+      </li>
+
+      <li>
+        <a href="https://www.threads.com/@laracarmen0"
+           class="x" aria-label="Threads"
+           target="_blank" rel="noopener noreferrer">
+          <img src="images.png" alt="Threads">
+        </a>
+      </li>
+
+      <li>
+        <a href="https://laracarmen.com.br/?ref=ig"
+           class="tt" aria-label="Site / Telegram"
+           target="_blank" rel="noopener noreferrer">
+          <img src="Ícone Telegram Neon Glossy.png" alt="Site / Telegram">
+        </a>
+      </li>
+
     </ul>
 
     <button class="pill" id="abrir" type="button" aria-haspopup="dialog" aria-expanded="false">
       Redes sociais
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
     </button>
 
     <p class="bio">Hey Welcome</p>
-    <p class="rodape"><a href="https://about.link.me/privacypolicy">Privacy Policy</a> | <a href="https://about.link.me/termsandconditions">Terms</a> | <a href="https://stopncii.org">Report</a></p>
+
+    <p class="rodape">
+      <a href="https://about.link.me/privacypolicy">Privacy Policy</a> |
+      <a href="https://about.link.me/termsandconditions">Terms</a> |
+      <a href="https://stopncii.org">Report</a>
+    </p>
+
   </section>
 
   <div class="veu" id="veu"></div>
@@ -164,59 +289,122 @@
     <p class="titulo">Redes sociais</p>
     <ul class="lista" id="lista"></ul>
   </div>
+
 </main>
 
 <script>
+
 const REDES = [
-  { key: "ig", nome: "Laracarmen0", link: "#", foto: "foto.png" }, // foto e link do ttk
-  { key: "x",  nome: "Laracarmen0", link: "#", foto: "images.png" }, // foto e link do threads
-  { key: "tg", nome: "Laracarmen0",  https://laracarmen.com.br/?ref=ig: "#", foto: "Ícone Telegram Neon Glossy.png" } // foto e link do telegram
+  {
+    key: "tg",
+    nome: "Laracarmen0",
+    link: "https://www.instagram.com/laracarmen0?utm_source=ig_web_button_share_sheet&vrfl=ZDNlZDc0MzIxNw==",
+    foto: "foto.png"
+  },
+  {
+    key: "x",
+    nome: "Laracarmen0",
+    link: "https://www.threads.com/@laracarmen0",
+    foto: "images.png"
+  },
+  {
+    key: "tt",
+    nome: "Laracarmen0",
+    link: "https://laracarmen.com.br/?ref=ig",
+    foto: "Ícone Telegram Neon Glossy.png"
+  }
 ];
 
 const ICONES = {
   tt: document.querySelector(".redes a.tt").innerHTML,
-  x:  document.querySelector(".redes a.x").innerHTML,
+  x: document.querySelector(".redes a.x").innerHTML,
   tg: document.querySelector(".redes a.tg").innerHTML
 };
 
 const lista = document.getElementById("lista");
+
 REDES.forEach((r, i) => {
   const li = document.createElement("li");
   li.style.setProperty("--i", i);
+
   li.innerHTML =
-    '<a class="linha" href="' + r.link + '">' +
+    '<a class="linha" href="' + r.link + '" target="_blank" rel="noopener noreferrer">' +
     '<span class="av"><img class="pessoa" src="' + r.foto + '" alt="">' +
     '<span class="badge ' + r.key + '">' + ICONES[r.key] + '</span></span>' +
     '<span class="n">' + r.nome + '</span>' +
     '<svg class="seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>';
+
   lista.appendChild(li);
 });
 
 const foto = document.getElementById("foto");
 document.getElementById("fundo").src = foto.getAttribute("src");
 
-const sheet = document.getElementById("sheet"), pill = document.getElementById("abrir"), veu = document.getElementById("veu");
-function abrir() { veu.classList.add("on"); sheet.classList.add("on"); pill.classList.add("on"); pill.setAttribute("aria-expanded", "true"); sheet.setAttribute("aria-hidden", "false"); }
-function fechar() { veu.classList.remove("on"); sheet.classList.remove("on"); pill.classList.remove("on"); pill.setAttribute("aria-expanded", "false"); sheet.setAttribute("aria-hidden", "true"); }
+const sheet = document.getElementById("sheet"),
+pill = document.getElementById("abrir"),
+veu = document.getElementById("veu");
+
+function abrir() {
+  veu.classList.add("on");
+  sheet.classList.add("on");
+  pill.classList.add("on");
+  pill.setAttribute("aria-expanded", "true");
+  sheet.setAttribute("aria-hidden", "false");
+}
+
+function fechar() {
+  veu.classList.remove("on");
+  sheet.classList.remove("on");
+  pill.classList.remove("on");
+  pill.setAttribute("aria-expanded", "false");
+  sheet.setAttribute("aria-hidden", "true");
+}
+
 pill.addEventListener("click", () => sheet.classList.contains("on") ? fechar() : abrir());
-document.addEventListener("keydown", e => { if (e.key === "Escape") fechar(); });
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") fechar();
+});
+
 veu.addEventListener("click", fechar);
 
 let y0 = null;
-sheet.addEventListener("pointerdown", e => { y0 = e.clientY; sheet.classList.add("arrastando"); sheet.setPointerCapture(e.pointerId); });
-sheet.addEventListener("pointermove", e => { if (y0 !== null) sheet.style.transform = "translateY(" + Math.max(0, e.clientY - y0) + "px)"; });
+
+sheet.addEventListener("pointerdown", e => {
+  y0 = e.clientY;
+  sheet.classList.add("arrastando");
+  sheet.setPointerCapture(e.pointerId);
+});
+
+sheet.addEventListener("pointermove", e => {
+  if (y0 !== null) {
+    sheet.style.transform = "translateY(" + Math.max(0, e.clientY - y0) + "px)";
+  }
+});
+
 function soltar(e) {
   if (y0 === null) return;
-  const dy = e.clientY - y0; y0 = null;
-  sheet.classList.remove("arrastando"); sheet.style.transform = "";
+  const dy = e.clientY - y0;
+  y0 = null;
+  sheet.classList.remove("arrastando");
+  sheet.style.transform = "";
   if (dy > 80) fechar();
 }
+
 sheet.addEventListener("pointerup", soltar);
 sheet.addEventListener("pointercancel", soltar);
 
 let ty = null;
-pill.addEventListener("touchstart", e => { ty = e.touches[0].clientY; }, { passive: true });
-pill.addEventListener("touchend", e => { if (ty !== null && ty - e.changedTouches[0].clientY > 30) abrir(); ty = null; });
+
+pill.addEventListener("touchstart", e => {
+  ty = e.touches[0].clientY;
+}, { passive: true });
+
+pill.addEventListener("touchend", e => {
+  if (ty !== null && ty - e.changedTouches[0].clientY > 30) abrir();
+  ty = null;
+});
+
 </script>
 </body>
 </html>
